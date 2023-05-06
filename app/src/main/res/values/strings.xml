@@ -14,4 +14,5 @@
     </string>
     <string name="deksripsiText">Deksripsi : </string>
     <string name="username">SampleNAme</string>
+    <string name="registerSuccess">sukses mendaftar</string>
 </resources>

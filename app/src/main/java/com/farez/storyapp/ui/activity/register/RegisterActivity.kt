@@ -26,15 +26,22 @@ class RegisterActivity : AppCompatActivity() {
                     val email : String = edRegisterEmail.text.toString()
                     val password : String= edRegisterPassword.text.toString()
                     val name : String = edRegisterName.text.toString()
-                    if (email.isEmpty() || password.isEmpty() || password.length < 8 || name.isEmpty()) {
+                    if (!validEmail(email) || !validPass(password) || name.isEmpty()) {
                         Toast.makeText(this@RegisterActivity, R.string.errorField, Toast.LENGTH_SHORT).show()
                     } else {
                         registerViewModel.register(name, password, email)
+                        Toast.makeText(this@RegisterActivity, R.string.registerSuccess, Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     }
 
 
                 }
             }
+    }
+    fun validEmail(email : CharSequence) : Boolean{
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+    fun validPass(pass : String) : Boolean {
+        return (pass.length > 8 || pass.isNotEmpty())
     }
 }

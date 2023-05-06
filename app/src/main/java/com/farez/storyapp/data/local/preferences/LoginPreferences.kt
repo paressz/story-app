@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LoginPreferences (private val dataStore: DataStore<Preferences>) {
+class LoginPreferences private constructor(private val dataStore: DataStore<Preferences>) {
 
     private val token = stringPreferencesKey("TOKEN")
     private val auth = booleanPreferencesKey("AUTH")

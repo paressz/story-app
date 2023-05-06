@@ -9,6 +9,7 @@ import com.farez.storyapp.data.remote.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
 
 
 class UserRepository (private val apiService: ApiService){
@@ -46,7 +47,30 @@ class UserRepository (private val apiService: ApiService){
     }
 
     fun login (email: String, password: String) : LiveData<Result<LoginResponse>> {
+        loginResult.value = Result.Loading
+        apiService.login(email, password)
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val info = response.body()
+                        if (info != null) {
+                            loginResult.value = Result.Success(info)
+                        } else {
+                            loginResult.value = Result.Error(LOGIN_ERROR)
+                        }
+                    } else {
+                        loginResult.value = Result.Error(LOGIN_ERROR)
+                    }
+                }
 
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    loginResult.value = Result.Error(LOGIN_ERROR)
+                }
+
+            })
         return loginResult
     }
 

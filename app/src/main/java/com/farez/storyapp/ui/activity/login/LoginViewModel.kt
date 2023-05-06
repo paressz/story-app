@@ -7,9 +7,7 @@ import com.farez.storyapp.data.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val userRepository: UserRepository, loginPreferences: LoginPreferences) : ViewModel() {
-    val getAuth : LiveData<Boolean> = loginPreferences.getAuth().asLiveData()
-    val token : LiveData<String> = loginPreferences.getToken().asLiveData()
+class LoginViewModel(private val userRepository: UserRepository,private val loginPreferences: LoginPreferences) : ViewModel() {
     fun login(email : String, password : String) {
         userRepository.login(email, password)
     }
@@ -17,6 +15,9 @@ class LoginViewModel(private val userRepository: UserRepository, loginPreference
         viewModelScope.launch(Dispatchers.IO) {
             saveToken(token)
         }
+    }
+    fun getAuth() : LiveData<Boolean>{
+        return loginPreferences.getAuth().asLiveData()
     }
 }
 
