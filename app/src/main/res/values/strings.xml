@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">story app</string>
+    <string name="loginText">Login</string>
+    <string name="emailHint">Email</string>
+    <string name="registerText">daftar baru</string>
+    <string name="register2Text">Daftar</string>
+    <string name="nameText">Nama</string>
+    <string name="errorField">Isi semua bagian dengan benar!</string>
+    <string name="lorem">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+        been the industry\'s standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and scrambled it to
+        make a type specimen book. It has survived not only five
+    </string>
+    <string name="deksripsiText">Deksripsi : </string>
+    <string name="username">SampleNAme</string>
+</resources>
