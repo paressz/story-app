@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -15,6 +16,8 @@ import com.farez.storyapp.data.local.preferences.LoginPreferences
 import com.farez.storyapp.data.repository.UserRepository
 import com.farez.storyapp.databinding.ActivityLoginBinding
 import com.farez.storyapp.ui.activity.main.MainActivity
+import com.farez.storyapp.data.remote.Result
+import com.farez.storyapp.ui.activity.Story.StoryActivity
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "TOKEN")
 class LoginActivity : AppCompatActivity() {
@@ -26,10 +29,13 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         vmFactory = LoginVMFactory(UserRepository.getInstance(ApiConfig.getApiService()), LoginPreferences.getInstance(dataStore))
-        loginViewModel = ViewModelProvider(this, vmFactory).get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this, vmFactory)[LoginViewModel::class.java]
         supportActionBar?.hide()
-
         setup()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
      fun setup() {
          binding.apply {
@@ -39,7 +45,25 @@ class LoginActivity : AppCompatActivity() {
                  if (!validEmail(email) || !validPass(password)) {
                      Toast.makeText(this@LoginActivity, R.string.errorField, Toast.LENGTH_SHORT).show()
                  } else {
-                     loginViewModel.login(email, password)
+                     loginViewModel.login(email, password).observe(this@LoginActivity) {
+                        when (it) {
+                            is Result.Success -> {
+                                progressBar.visibility = View.GONE
+                                loginViewModel.setAuth(true)
+                                loginViewModel.saveToken(it.data.loginResult.token)
+                                startActivity(Intent(this@LoginActivity, StoryActivity::class.java))
+                                finish()
+                            }
+                            is Result.Error -> {
+                                progressBar.visibility = View.GONE
+                                Toast.makeText(this@LoginActivity, it.error, Toast.LENGTH_SHORT).show()
+                            }
+                            is Result.Loading -> {
+                                progressBar.visibility = View.VISIBLE
+
+                            }
+                        }
+                     }
                  }
 
              }
@@ -48,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun checkAuth() {
         loginViewModel.getAuth().observe(this) {
-            if (it) {
+            if (!it) {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }

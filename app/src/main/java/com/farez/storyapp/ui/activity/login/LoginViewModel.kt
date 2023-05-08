@@ -3,17 +3,22 @@ package com.farez.storyapp.ui.activity.login
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.farez.storyapp.data.local.preferences.LoginPreferences
+import com.farez.storyapp.data.remote.Result
+import com.farez.storyapp.data.remote.response.LoginResponse
 import com.farez.storyapp.data.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val userRepository: UserRepository,private val loginPreferences: LoginPreferences) : ViewModel() {
-    fun login(email : String, password : String) {
-        userRepository.login(email, password)
-    }
+    fun login(email : String, password : String) = userRepository.login(email, password)
     fun saveToken(token : String) {
         viewModelScope.launch(Dispatchers.IO) {
-            saveToken(token)
+            loginPreferences.saveToken(token)
+        }
+    }
+    fun setAuth(auth: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            loginPreferences.setAuth(auth)
         }
     }
     fun getAuth() : LiveData<Boolean>{

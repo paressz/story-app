@@ -15,4 +15,6 @@
     <string name="deksripsiText">Deksripsi : </string>
     <string name="username">SampleNAme</string>
     <string name="registerSuccess">sukses mendaftar</string>
+    <string name="loginOrDaftar">Silahkan login atau buat akun</string>
+    <string name="welcomeText">Selamat Datang!</string>
 </resources>
