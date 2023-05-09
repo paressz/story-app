@@ -2,13 +2,10 @@ package com.farez.storyapp.ui.view
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
-import com.farez.storyapp.R
 
 class PasswordEditText : AppCompatEditText {
     constructor(context: Context) : super(context) {

@@ -3,8 +3,6 @@ package com.farez.storyapp.ui.activity.main
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.farez.storyapp.data.local.preferences.LoginPreferences
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainViewModel(private val loginPreferences: LoginPreferences) : ViewModel() {
     fun getAuth() : LiveData<Boolean> {

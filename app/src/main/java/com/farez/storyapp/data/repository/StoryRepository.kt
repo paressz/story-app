@@ -21,7 +21,6 @@ import java.io.File
 class StoryRepository(private val apiService: ApiService) {
     val getStoriesResult = MutableLiveData<Result<List<Story>>>()
     val postStoryResult = MutableLiveData<Result<NewStoryResponse>>()
-    val _storiesList = MutableLiveData<List<Story>>()
     fun getStories(token: String): LiveData<Result<List<Story>>> {
         getStoriesResult.value = Result.Loading
         apiService.getStory(token).enqueue(object : Callback<GetStoryResponse> {

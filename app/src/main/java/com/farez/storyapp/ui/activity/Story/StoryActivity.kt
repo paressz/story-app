@@ -18,9 +18,8 @@ import com.farez.storyapp.api.ApiConfig
 import com.farez.storyapp.data.local.preferences.LoginPreferences
 import com.farez.storyapp.data.repository.StoryRepository
 import com.farez.storyapp.databinding.ActivityStoryBinding
-import com.farez.storyapp.ui.activity.login.LoginActivity
 import com.farez.storyapp.data.remote.Result
-import com.farez.storyapp.ui.activity.UploadActivity
+import com.farez.storyapp.ui.activity.Upload.UploadActivity
 import com.farez.storyapp.ui.activity.main.MainActivity
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "TOKEN")
@@ -37,6 +36,7 @@ class StoryActivity : AppCompatActivity() {
         setupViewModel()
         fabSetup()
         getToken()
+
     }
 
     override fun onResume() {
@@ -121,7 +121,9 @@ class StoryActivity : AppCompatActivity() {
                 fabExpand()
             }
             floatingActionButton2.setOnClickListener {
-                startActivity(Intent(this@StoryActivity, UploadActivity::class.java))
+                val sendToken = Intent(this@StoryActivity, UploadActivity::class.java)
+                sendToken.putExtra("token", token)
+                startActivity(sendToken)
             }
             floatingActionButton3.setOnClickListener {
                 storyViewModel.logout()

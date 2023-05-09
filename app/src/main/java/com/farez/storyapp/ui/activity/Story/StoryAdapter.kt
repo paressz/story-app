@@ -33,11 +33,11 @@ class StoryAdapter (private val listStory : List<Story>) : RecyclerView.Adapter<
             }
             itemView.setOnClickListener {
                 val intent = Intent(it.context, DetailActivity::class.java).putExtra("story", stories)
-                val optionCompat : ActivityOptionsCompat =
+                val activityTransitioni : ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        it.context as Activity, Pair(binding.ivItemPhoto, "foto"), Pair(binding.tvItemName, "name")
+                        it.context as Activity, Pair(binding.ivItemPhoto, "foto"), Pair(binding.tvItemName, "text")
                     )
-                it.context.startActivity(intent,optionCompat.toBundle())
+                it.context.startActivity(intent,activityTransitioni.toBundle())
             }
         }
 

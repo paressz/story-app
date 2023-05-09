@@ -3,8 +3,6 @@ package com.farez.storyapp.ui.activity.login
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.farez.storyapp.data.local.preferences.LoginPreferences
-import com.farez.storyapp.data.remote.Result
-import com.farez.storyapp.data.remote.response.LoginResponse
 import com.farez.storyapp.data.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

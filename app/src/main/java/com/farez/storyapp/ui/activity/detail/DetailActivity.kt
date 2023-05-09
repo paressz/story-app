@@ -18,6 +18,7 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(story?.photoUrl)
             .override(Target.SIZE_ORIGINAL)
+            .fitCenter()
             .into(binding.ivDetailPhoto)
         binding.tvDetailName.text = story?.name
         binding.tvDetailDescription.text = story?.description
