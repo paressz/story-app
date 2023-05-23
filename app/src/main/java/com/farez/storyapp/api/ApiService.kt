@@ -13,6 +13,12 @@ interface ApiService {
         @Query("size") size: Int? = null
     ): Call<GetStoryResponse>
 
+    @GET("stories")
+    fun getMapStory(
+        @Header("Authorization") token: String,
+        @Query("location") loc: Int
+    ) : Call<GetStoryResponse>
+
     @Multipart
     @POST("stories")
     fun newStory(

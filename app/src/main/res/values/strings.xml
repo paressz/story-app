@@ -17,4 +17,5 @@
     <string name="registerSuccess">sukses mendaftar</string>
     <string name="loginOrDaftar">Silahkan login atau buat akun</string>
     <string name="welcomeText">Selamat Datang!</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

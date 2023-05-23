@@ -21,6 +21,7 @@ import com.farez.storyapp.databinding.ActivityStoryBinding
 import com.farez.storyapp.data.remote.Result
 import com.farez.storyapp.ui.activity.Upload.UploadActivity
 import com.farez.storyapp.ui.activity.main.MainActivity
+import com.farez.storyapp.ui.activity.map.MapsActivity
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "TOKEN")
 class StoryActivity : AppCompatActivity() {
@@ -103,6 +104,7 @@ class StoryActivity : AppCompatActivity() {
             binding.apply {
                 floatingActionButton2.visibility = View.VISIBLE
                 floatingActionButton3.visibility = View.VISIBLE
+                floatingActionButton4.visibility = View.VISIBLE
                 floatingActionButton.setImageResource(R.drawable.round_close_24)
             }
         }
@@ -110,6 +112,8 @@ class StoryActivity : AppCompatActivity() {
             binding.apply {
                 floatingActionButton2.visibility = View.GONE
                 floatingActionButton3.visibility = View.GONE
+                floatingActionButton4.visibility = View.GONE
+
                 floatingActionButton.setImageResource(R.drawable.round_add_24)
             }
         }
@@ -127,6 +131,10 @@ class StoryActivity : AppCompatActivity() {
             }
             floatingActionButton3.setOnClickListener {
                 storyViewModel.logout()
+            }
+            floatingActionButton4.setOnClickListener {
+                val sendToken = Intent(this@StoryActivity, MapsActivity::class.java).putExtra("token", token)
+                startActivity(sendToken)
             }
         }
     }

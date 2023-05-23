@@ -44,6 +44,31 @@ class StoryRepository(private val apiService: ApiService) {
         return getStoriesResult
     }
 
+    fun getMapStory(token: String) : LiveData<Result<List<Story>>> {
+        getStoriesResult.value = Result.Loading
+        apiService.getMapStory(token, 1).enqueue(object : Callback<GetStoryResponse> {
+            override fun onResponse(
+                call: Call<GetStoryResponse>,
+                response: Response<GetStoryResponse>
+            ) {
+                if (response.isSuccessful) {
+                    getStoriesResult.value = Result.Success(response.body()?.listStory as List<Story>)
+                } else {
+                    getStoriesResult.value = Result.Error("no response")
+                    Log.e("failed response", "onResponse: story info is null")
+                }
+            }
+
+            override fun onFailure(call: Call<GetStoryResponse>, t: Throwable) {
+                getStoriesResult.value = Result.Error(t.message.toString())
+                Log.e("failed response", "Failed: ${t.message.toString()}")
+            }
+
+        })
+
+        return getStoriesResult
+    }
+
     fun postStory(
         token: String, img: File, desccription: String
     ): LiveData<Result<NewStoryResponse>> {
