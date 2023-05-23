@@ -42,6 +42,6 @@ class RegisterActivity : AppCompatActivity() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
     fun validPass(pass : String) : Boolean {
-        return (pass.length > 8 || pass.isNotEmpty())
+        return (pass.length >=8)
     }
 }
