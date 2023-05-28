@@ -2,6 +2,7 @@ package com.farez.storyapp.data.remote.response
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
@@ -18,6 +19,7 @@ data class GetStoryResponse(
 ) : Parcelable
 
 @Parcelize
+@Entity(tableName = "stories")
 data class Story(
 
 	@field:SerializedName("photoUrl")

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.datastore.core.DataStore
@@ -68,35 +69,48 @@ class StoryActivity : AppCompatActivity() {
     }
     fun setupView(token : String) {
         supportActionBar?.hide()
+        val adapter = StoryPagedAdapter()
+        storyViewModel.test(token).observe(this@StoryActivity) {
+            adapter.submitData(lifecycle, it)
+            Toast.makeText(this@StoryActivity, "${adapter.snapshot().size}", Toast.LENGTH_SHORT).show()
+            Log.d("tokentoken", "setupView, data : ${adapter.snapshot().isEmpty()}")
+        }
+        binding.rv.adapter = adapter
+        binding.rv.layoutManager = LinearLayoutManager(this)
+        binding.rv.setHasFixedSize(true)
         binding.apply {
-            storyViewModel.getStories(token).observe(this@StoryActivity) {
-                when (it) {
-                    is Result.Loading -> {
-                        progressBar2.visibility =  View.VISIBLE
-                    }
-                    is Result.Error -> {
-                        progressBar2.visibility =  View.GONE
-                        val error =  it.error
-                        Toast.makeText(this@StoryActivity, error, Toast.LENGTH_SHORT).show()
-                    }
-                    is Result.Success -> {
-                        progressBar2.visibility =  View.GONE
-                        textView3.visibility = View.GONE
-                        if (it.data.isEmpty()) {
-                            textView3.visibility = View.VISIBLE
-                            Toast.makeText(this@StoryActivity, "${it.data.isEmpty()}", Toast.LENGTH_SHORT).show()
-                        } else {
-                            rv.adapter = StoryAdapter(it.data)
-                            if (this@StoryActivity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                                rv.layoutManager = GridLayoutManager(this@StoryActivity,2)
-
-                            } else {
-                                rv.layoutManager = LinearLayoutManager(this@StoryActivity)
-                            }
-                        }
-                    }
-                }
-            }
+//            storyViewModel.getStories(token).observe(this@StoryActivity) {
+//                when (it) {
+//                    is Result.Loading -> {
+//                        progressBar2.visibility =  View.VISIBLE
+//                    }
+//                    is Result.Error -> {
+//                        progressBar2.visibility =  View.GONE
+//                        val error =  it.error
+//                        Toast.makeText(this@StoryActivity, error, Toast.LENGTH_SHORT).show()
+//                    }
+//                    is Result.Success -> {
+//                        progressBar2.visibility =  View.GONE
+//                        textView3.visibility = View.GONE
+//                        if (it.data.isEmpty()) {
+//                            textView3.visibility = View.VISIBLE
+//                            Toast.makeText(this@StoryActivity, "${it.data.isEmpty()}", Toast.LENGTH_SHORT).show()
+//                        } else {
+//                            val adapter = StoryPagedAdapter()
+//                            rv.adapter = adapter
+//                            storyViewModel.test(token).observe(this@StoryActivity) {
+//                                adapter.submitData(lifecycle, it)
+//                            }
+//                            if (this@StoryActivity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                                rv.layoutManager = GridLayoutManager(this@StoryActivity,2)
+//
+//                            } else {
+//                                rv.layoutManager = LinearLayoutManager(this@StoryActivity)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
     }
     fun fabExpand() {

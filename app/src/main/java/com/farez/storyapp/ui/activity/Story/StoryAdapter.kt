@@ -47,6 +47,6 @@ class StoryAdapter (private val listStory : List<Story>) : RecyclerView.Adapter<
         fun itemClicked(data : Story)
     }
     fun setOnItemClick(onItemClick : OnItemClick) {
-        this.onItemClick = onItemClick
+        //this.onItemClick = onItemClick
     }
 }

@@ -3,6 +3,7 @@ import com.farez.storyapp.data.remote.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -11,7 +12,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null
-    ): Call<GetStoryResponse>
+    ): Response<GetStoryResponse>
 
     @GET("stories")
     fun getMapStory(

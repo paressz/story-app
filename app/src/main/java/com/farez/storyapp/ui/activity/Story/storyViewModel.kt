@@ -2,6 +2,7 @@ package com.farez.storyapp.ui.activity.Story
 
 import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.paging.cachedIn
 import com.farez.storyapp.data.local.preferences.LoginPreferences
 import com.farez.storyapp.data.repository.StoryRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,8 @@ class StoryViewModel(private val storyRepository: StoryRepository, private val l
     }
     fun getToken() : LiveData<String> = loginPreferences.getToken().asLiveData()
     fun getStories(token: String) = storyRepository.getStories(token)
+
+    fun test(token: String) = storyRepository.testadapter(token).cachedIn(viewModelScope)
 }
 
 class StoryVMFactory (private val storyRepository: StoryRepository, private val loginPreferences: LoginPreferences) : ViewModelProvider.Factory {
