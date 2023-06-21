@@ -2,10 +2,10 @@ package com.farez.storyapp.ui.activity.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -13,11 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.farez.storyapp.R
 import com.farez.storyapp.api.ApiConfig
 import com.farez.storyapp.data.local.preferences.LoginPreferences
+import com.farez.storyapp.data.remote.Result
 import com.farez.storyapp.data.repository.UserRepository
 import com.farez.storyapp.databinding.ActivityLoginBinding
-import com.farez.storyapp.ui.activity.main.MainActivity
-import com.farez.storyapp.data.remote.Result
 import com.farez.storyapp.ui.activity.Story.StoryActivity
+import com.farez.storyapp.ui.activity.main.MainActivity
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "TOKEN")
 class LoginActivity : AppCompatActivity() {

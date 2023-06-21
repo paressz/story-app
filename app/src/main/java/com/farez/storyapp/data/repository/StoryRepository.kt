@@ -1,10 +1,15 @@
 package com.farez.storyapp.data.repository
 
 import android.util.Log
-import com.farez.storyapp.data.remote.Result
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.farez.storyapp.api.ApiService
+import com.farez.storyapp.data.paging.StoryPagingSource
+import com.farez.storyapp.data.remote.Result
 import com.farez.storyapp.data.remote.response.GetStoryResponse
 import com.farez.storyapp.data.remote.response.NewStoryResponse
 import com.farez.storyapp.data.remote.response.Story
@@ -21,27 +26,12 @@ import java.io.File
 class StoryRepository(private val apiService: ApiService) {
     val getStoriesResult = MutableLiveData<Result<List<Story>>>()
     val postStoryResult = MutableLiveData<Result<NewStoryResponse>>()
-    fun getStories(token: String): LiveData<Result<List<Story>>> {
-        getStoriesResult.value = Result.Loading
-        apiService.getStory(token).enqueue(object : Callback<GetStoryResponse> {
-            override fun onResponse(
-                call: Call<GetStoryResponse>, response: Response<GetStoryResponse>
-            ) {
-                if (response.isSuccessful) {
-                    getStoriesResult.value = Result.Success(response.body()?.listStory as List<Story>)
-                } else {
-                    getStoriesResult.value = Result.Error("no response")
-                    Log.e("failed response", "onResponse: story info is null")
-                }
-            }
+    fun getStoryWithPaging(token : String) : LiveData<PagingData<Story>> {
+        return Pager(
+            config = PagingConfig(15, ),
+            pagingSourceFactory = { StoryPagingSource(apiService, token) },
 
-            override fun onFailure(call: Call<GetStoryResponse>, t: Throwable) {
-                getStoriesResult.value = Result.Error(t.message.toString())
-                Log.e("failed response", "Failed: ${t.message.toString()}")
-            }
-
-        })
-        return getStoriesResult
+        ).liveData
     }
 
     fun getMapStory(token: String) : LiveData<Result<List<Story>>> {

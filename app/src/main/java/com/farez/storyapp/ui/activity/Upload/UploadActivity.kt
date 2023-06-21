@@ -4,21 +4,21 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.farez.storyapp.api.ApiConfig
+import com.farez.storyapp.data.remote.Result
 import com.farez.storyapp.data.repository.StoryRepository
 import com.farez.storyapp.databinding.ActivityUploadBinding
 import com.farez.storyapp.reduceFileImage
 import com.farez.storyapp.rotateBitmap
+import com.farez.storyapp.ui.activity.Story.StoryActivity
 import com.farez.storyapp.ui.activity.Upload.CameraXActivity.Companion.CAMERA_X_RESULT
 import com.farez.storyapp.uriToFile
-import com.farez.storyapp.data.remote.Result
-import com.farez.storyapp.ui.activity.Story.StoryActivity
 import java.io.File
 import java.io.FileOutputStream
 
