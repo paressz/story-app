@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.farez.storyapp.api.ApiService
+import com.farez.storyapp.data.remote.Result
 import com.farez.storyapp.data.remote.response.LoginResponse
 import com.farez.storyapp.data.remote.response.RegisterResponse
-import com.farez.storyapp.data.remote.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

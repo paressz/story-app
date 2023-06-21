@@ -1,11 +1,11 @@
 package com.farez.storyapp.ui.activity.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.farez.storyapp.data.remote.response.Story
 import com.farez.storyapp.databinding.ActivityDetailBinding
-import com.bumptech.glide.request.target.Target
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
