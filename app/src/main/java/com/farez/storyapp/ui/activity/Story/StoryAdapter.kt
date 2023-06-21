@@ -42,11 +42,4 @@ class StoryAdapter (private val listStory : List<Story>) : RecyclerView.Adapter<
         }
 
     }
-    private lateinit var onItemClick : OnItemClick
-    interface OnItemClick {
-        fun itemClicked(data : Story)
-    }
-    fun setOnItemClick(onItemClick : OnItemClick) {
-        //this.onItemClick = onItemClick
-    }
 }

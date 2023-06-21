@@ -1,6 +1,5 @@
 package com.farez.storyapp.data.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.farez.storyapp.api.ApiService
@@ -19,11 +18,10 @@ class StoryPagingSource (private val apiService: ApiService, private val token: 
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getStory(token, position, params.loadSize)
             val listStory = responseData.body()!!.listStory as MutableList<Story>
-            Log.d("check list", "check story: ${listStory.size}")
             LoadResult.Page(
                 data = listStory,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if ((responseData.body()!!.listStory as MutableList<Story>).isEmpty()) null else position + 1
+                nextKey = if (listStory.isEmpty()) null else position + 1
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

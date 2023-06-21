@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface ApiService {
     @GET("stories")
-    fun getStory(
+    suspend fun getStory(
         @Header("Authorization") token: String,
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null

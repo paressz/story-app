@@ -16,9 +16,8 @@ class StoryViewModel(private val storyRepository: StoryRepository, private val l
         }
     }
     fun getToken() : LiveData<String> = loginPreferences.getToken().asLiveData()
-    fun getStories(token: String) = storyRepository.getStories(token)
 
-    fun test(token: String) = storyRepository.testadapter(token).cachedIn(viewModelScope)
+    fun getStoryWithPaging(token: String) = storyRepository.getStoryWithPaging(token).cachedIn(viewModelScope)
 }
 
 class StoryVMFactory (private val storyRepository: StoryRepository, private val loginPreferences: LoginPreferences) : ViewModelProvider.Factory {
